@@ -8,7 +8,7 @@ Status: **APK PRODUCED & VERIFIED (static + UI tests)** — 2026-09-18
 - [x] Verify existing features in source — الميزات المذكورة في الـ handoff نُفِّذت فعليًا (موثّقة في README)
 - [x] Prepare reproducible Android build — `scripts/bootstrap-tools.sh` + `scripts/build-apk.sh` (بلا Gradle/SDK)
 - [x] Prepare GitHub Actions if needed — `.github/workflows/android-build.yml` (بناء + اختبار + artifact)
-- [x] Run JavaScript/lint/tests/build gate — 8/8 syntax، 32/32 UI smoke، CSS نظيف
+- [x] Run JavaScript/lint/tests/build gate — 8/8 syntax، 34/34 UI smoke، CSS نظيف
 - [x] Build installable APK — `artifacts/so-key-ai-1.0.0-debug.apk` (≈870 KB، موقّع، minSdk 24)
 - [x] Verify package ID and launch — `ai.sokey.workspace` ✅ · `launcher activity` ✅ · ELF/dex سليم
 - [x] Finalize documentation — README + docs/{BUILD_STATUS,TESTING,UI-MAP}.md + NOTICE

@@ -376,6 +376,26 @@ public class NativeBridge {
         HttpTool.abort(streamId);
     }
 
+    /* ------------------------------------------------------------ app state */
+
+    /**
+     * Persistent UI state (chats, settings, theme …).
+     *
+     * It lives in a file inside the app sandbox rather than in WebView localStorage,
+     * which is not guaranteed to be writable for a {@code file://} origin on every
+     * WebView build. Both are written; this one is authoritative.
+     */
+    @JavascriptInterface
+    public String readState() {
+        String content = Workspace.read(activity, "state/app-state.json");
+        return content == null ? "" : content;
+    }
+
+    @JavascriptInterface
+    public boolean writeState(String json) {
+        return Workspace.write(activity, "state/app-state.json", json);
+    }
+
     /* ---------------------------------------------------------------- usage */
 
     @JavascriptInterface

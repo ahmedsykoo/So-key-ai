@@ -47,7 +47,7 @@ function buildHtml() {
 }
 
 /* ------------------------------------------------- fake native bridge (Java) */
-function makeNative(log) {
+function makeNative(log, nativeState) {
   const files = new Map();
   files.set("notes/todo.md", "# todo\n- ship So-key Ai\n");
   const fonts = [];
@@ -107,6 +107,9 @@ function makeNative(log) {
       if (cmd.startsWith("http ")) return '{"status":200,"body":"ok"}';
       return "unknown command: " + cmd.split(" ")[0] + " (type help)";
     },
+    // persisted UI state (authoritative copy lives in the app sandbox)
+    readState: () => nativeState.value,
+    writeState: (json) => { nativeState.value = json; log.push(["state", String(json.length)]); return true; },
     httpRequest: () => JSON.stringify({ status: 200, body: "{}" }),
     httpStream: () => JSON.stringify({ started: true, id: "x" }),
     httpAbort: () => {},
@@ -162,13 +165,14 @@ async function main() {
   virtualConsole.on("error", (...a) => errors.push(a.join(" ")));
 
   const log = [];
+  const nativeState = { value: "" };
   const dom = new JSDOM(buildHtml(), {
     url: "http://localhost/",
     runScripts: "dangerously",
     pretendToBeVisual: true,
     virtualConsole,
     beforeParse(window) {
-      window.AndroidNative = makeNative(log);
+      window.AndroidNative = makeNative(log, nativeState);
       window.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 8);
       installFetch(window, log);
     },
@@ -322,6 +326,18 @@ async function main() {
   window.App.go("settings");
   const handled = window.__sokeyBack();
   check("Android back returns to home", handled === true && window.App.router.route === "home");
+
+  // persisted state must reach the native sandbox, not only WebView localStorage
+  window.Store.logActivity("state persistence probe", "•", "#22d3ee");
+  await wait(260);
+  let persisted = {};
+  try { persisted = JSON.parse(nativeState.value || "{}"); } catch (e) { persisted = {}; }
+  check("UI state is persisted through the native bridge",
+    Object.keys(persisted).length > 0 && Array.isArray(persisted.chats),
+    nativeState.value.slice(0, 60));
+  check("persisted state carries the project + theme settings",
+    !!(persisted.settings && persisted.settings.theme) && Array.isArray(persisted.projects),
+    JSON.stringify(Object.keys(persisted)));
 
   check("no script errors during the whole run", errors.length === 0, errors.slice(0, 3).join(" | "));
 

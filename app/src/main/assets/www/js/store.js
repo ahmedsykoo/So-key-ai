@@ -107,9 +107,32 @@
     activity: [],
   };
 
+  /** Native (authoritative) read: survives regardless of WebView storage policy. */
+  function readNative() {
+    try {
+      const bridge = window.AndroidNative;
+      if (bridge && typeof bridge.readState === "function") {
+        const raw = bridge.readState();
+        if (raw && raw.length > 2) return raw;
+      }
+    } catch (e) { /* bridge absent (browser preview / test) */ }
+    return null;
+  }
+
+  function readWeb() {
+    try { return localStorage.getItem(KEY); } catch (e) { return null; }
+  }
+
+  function writeNative(json) {
+    try {
+      const bridge = window.AndroidNative;
+      if (bridge && typeof bridge.writeState === "function") bridge.writeState(json);
+    } catch (e) { /* ignore */ }
+  }
+
   function load() {
     try {
-      const raw = localStorage.getItem(KEY);
+      const raw = readNative() || readWeb();
       if (!raw) return clone(DEFAULTS);
       const parsed = JSON.parse(raw);
       const merged = Object.assign(clone(DEFAULTS), parsed);
@@ -132,10 +155,13 @@
   function save(state) {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(() => {
+      const json = JSON.stringify(state);
+      writeNative(json);
       try {
-        localStorage.setItem(KEY, JSON.stringify(state));
+        localStorage.setItem(KEY, json);
       } catch (e) {
-        console.warn("state save failed", e);
+        // WebView may refuse localStorage for file:// origins — the native copy above
+        // already holds the state, so this is only a fast-path cache.
       }
     }, 120);
   }

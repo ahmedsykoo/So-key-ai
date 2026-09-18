@@ -28,7 +28,8 @@ An Android AI workspace — chat, agents, skills, terminal, projects and tools, 
 | ✅ | محادثات حقيقية مع أي مزوّد متوافق مع OpenAI، و**OmniRoute** بعنوان قابل للتعديل |
 | ✅ | بث SSE حقيقي + مسار أصلي (Java) لتجاوز قيود CORS على الشبكة المحلية |
 | ✅ | أدوات: طرفية مقيّدة بمساحة العمل، ملفات، GitHub، سير عمل، MCP، متصفح، مثبّت APK |
-| ✅ | اختبار واجهة آلي (jsdom): **32/32 ناجح** — `tools/ui-smoke` |
+| ✅ | اختبار واجهة آلي (jsdom): **34/34 ناجح** — `tools/ui-smoke` |
+| ✅ | حفظ الحالة في مساحة التطبيق عبر الجسر الأصلي (لا يعتمد على localStorage) |
 | ⚠️ | لم يُختبر على جهاز/محاكي أندرويد حقيقي من هذه البيئة (لا يوجد جهاز ولا Android SDK) |
 
 التفاصيل الكاملة في [`docs/BUILD_STATUS.md`](docs/BUILD_STATUS.md) و[`docs/TESTING.md`](docs/TESTING.md).
