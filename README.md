@@ -36,6 +36,17 @@ An Android AI workspace — chat, agents, skills, terminal, projects and tools, 
 
 ---
 
+## تنزيل الـ APK
+
+| الطريقة | الرابط |
+|---|---|
+| ملف في المستودع (هذا الفرع) | [`artifacts/so-key-ai-1.0.0-debug.apk`](https://github.com/ahmedsykoo/So-key-ai/blob/arena/01a0b4c2-so-key-ai/artifacts/so-key-ai-1.0.0-debug.apk) ← زر **Download** |
+| تنزيل مباشر (raw) | `https://raw.githubusercontent.com/ahmedsykoo/So-key-ai/arena/01a0b4c2-so-key-ai/artifacts/so-key-ai-1.0.0-debug.apk` |
+| صفحة تحميل بسيطة | افتح `artifacts/download.html` من خادم محلي: `python3 -m http.server 8081` ثم `/artifacts/download.html` |
+
+> ملاحظة: الملف موجود **في فرع هذه المراجعة** (`arena/01a0b4c2-so-key-ai`) وليس في `main` بعد،
+> لأن العمل ما زال في PR #2. بعد الدمج سيظهر في الفرع الافتراضي مباشرة.
+
 ## التثبيت
 
 ```bash
