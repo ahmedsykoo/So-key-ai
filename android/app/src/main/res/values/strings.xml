@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">So-key Ai</string>
+    <string name="title_activity_main">So-key Ai</string>
+    <string name="package_name">ai.sokey.workspace</string>
+    <string name="custom_url_scheme">ai.sokey.workspace</string>
+</resources>
