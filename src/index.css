@@ -1,0 +1,118 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    --bg-primary: #081017;
+    --bg-secondary: #0d1218;
+    --bg-card: #141c26;
+    --bg-elevated: #1e2938;
+    --border-color: #233042;
+    --accent-orange: #f38f49;
+    --accent-orange-burnt: #e05a10;
+    --accent-orange-glow: rgba(243, 143, 73, 0.3);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+  }
+
+  /* Custom Theme Variations */
+  .theme-dark-orange {
+    --bg-primary: #081017;
+    --bg-secondary: #0d1218;
+    --bg-card: #141c26;
+    --bg-elevated: #1e2938;
+    --border-color: #233042;
+    --accent-orange: #f38f49;
+    --accent-orange-burnt: #e05a10;
+    --accent-orange-glow: rgba(243, 143, 73, 0.35);
+  }
+
+  .theme-amoled {
+    --bg-primary: #000000;
+    --bg-secondary: #09090b;
+    --bg-card: #121215;
+    --bg-elevated: #1c1c21;
+    --border-color: #27272a;
+    --accent-orange: #f97316;
+    --accent-orange-burnt: #ea580c;
+    --accent-orange-glow: rgba(249, 115, 22, 0.4);
+  }
+
+  .theme-neon {
+    --bg-primary: #050510;
+    --bg-secondary: #0b0c20;
+    --bg-card: #121435;
+    --bg-elevated: #1d2050;
+    --border-color: #2b3070;
+    --accent-orange: #ff007f;
+    --accent-orange-burnt: #d9006c;
+    --accent-orange-glow: rgba(255, 0, 127, 0.5);
+  }
+
+  .theme-light {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --bg-card: #ffffff;
+    --bg-elevated: #e2e8f0;
+    --border-color: #cbd5e1;
+    --accent-orange: #ea580c;
+    --accent-orange-burnt: #c2480a;
+    --accent-orange-glow: rgba(234, 88, 12, 0.2);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-orange-burnt);
+}
+
+/* Glowing Border Effect */
+.orange-border-glow {
+  border: 1.5px solid var(--accent-orange-burnt);
+  box-shadow: 0 0 12px var(--accent-orange-glow);
+}
+
+.orange-gradient-btn {
+  background: linear-gradient(135deg, #f38f49 0%, #e05a10 100%);
+  color: #ffffff;
+}
+.orange-gradient-btn:hover {
+  background: linear-gradient(135deg, #ff9b57 0%, #f06316 100%);
+  box-shadow: 0 0 16px rgba(224, 90, 16, 0.5);
+}
+
+/* Pulse Glow Animation */
+@keyframes orangePulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(224, 90, 16, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(243, 143, 73, 0.6);
+  }
+}
+
+.animate-orange-pulse {
+  animation: orangePulse 2s infinite ease-in-out;
+}

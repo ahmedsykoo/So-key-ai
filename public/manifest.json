@@ -1,0 +1,19 @@
+{
+  "short_name": "So-key Ai",
+  "name": "So-key Ai — Your AI Workspace",
+  "id": "ai.sokey.workspace",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#081017",
+  "theme_color": "#e05a10",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar"
+}
