@@ -34,6 +34,9 @@ jobs:
       - name: Bootstrap the Android toolchain (no Android SDK / Gradle needed)
         run: bash scripts/bootstrap-tools.sh
 
+      - name: Validate Android resources
+        run: python3 scripts/check-resources.py
+
       - name: JavaScript syntax check
         run: |
           for f in app/src/main/assets/www/js/*.js; do node --check "$f"; done

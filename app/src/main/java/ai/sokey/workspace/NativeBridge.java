@@ -396,6 +396,33 @@ public class NativeBridge {
         return Workspace.write(activity, "state/app-state.json", json);
     }
 
+    /* ----------------------------------------------------------- diagnostics */
+
+    /** Stack trace of the last fatal error, so the UI can offer a copy button. */
+    @JavascriptInterface
+    public String lastCrash() {
+        return CrashLog.last(activity);
+    }
+
+    @JavascriptInterface
+    public void clearCrash() {
+        CrashLog.clear(activity);
+    }
+
+    @JavascriptInterface
+    public String buildInfo() {
+        try {
+            org.json.JSONObject o = new org.json.JSONObject();
+            o.put("versionName", BuildConfigCompat.VERSION_NAME);
+            o.put("versionCode", BuildConfigCompat.VERSION_CODE);
+            o.put("package", activity.getPackageName());
+            o.put("debug", BuildConfigCompat.DEBUG);
+            return o.toString();
+        } catch (Exception e) {
+            return "{}";
+        }
+    }
+
     /* ---------------------------------------------------------------- usage */
 
     @JavascriptInterface

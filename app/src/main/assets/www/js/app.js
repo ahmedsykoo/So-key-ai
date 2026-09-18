@@ -68,7 +68,7 @@
     mcp: () => [t("mcp"), t("mcp_hint")],
     browser: () => [t("browser"), t("browser_ph")],
     storage: () => [t("storage"), t("files_hint")],
-    about: () => [t("about"), `v1.0.0 · ai.sokey.workspace`],
+    about: () => [t("about"), `v${App.native.info().version || ""} · ai.sokey.workspace`],
     help: () => [t("help"), t("help_hint")],
     search: () => [t("search_ph"), t("search_all")],
   };
@@ -126,7 +126,7 @@
           <div class="grow">
             <div class="small bold">${window.UI.nfmt(App.native.usageToday())} tok</div>
             <div class="xsmall muted">${esc(t("used_today"))}</div>
-            <div class="xsmall faint">v1.0.0 · ai.sokey.workspace</div>
+            <div class="xsmall faint">v${esc(App.native.info().version || "")} · ai.sokey.workspace</div>
           </div>
         </div>
       </div>
@@ -522,6 +522,17 @@
       });
     },
     "files-go"() { go("files"); },
+    "copy-crash"() {
+      const text = window.Api.Native.lastCrash();
+      if (!text) { toast(t("nothing_here")); return; }
+      window.Api.Native.clipboard(text);
+      toast(t("copied"), "ok");
+    },
+    "clear-crash"() {
+      window.Api.Native.clearCrash();
+      render();
+      toast(t("deleted"), "ok");
+    },
     "reset-app"() {
       window.UI.confirmDialog(t("reset_confirm"), () => {
         window.Store.reset();

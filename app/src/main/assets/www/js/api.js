@@ -41,6 +41,8 @@
     deviceName() { return has("deviceName") ? NATIVE.deviceName() : "web"; },
     darkStatusBar(dark) { if (has("setStatusBar")) NATIVE.setStatusBar(!!dark); },
     exec(cmd) { return has("exec") ? NATIVE.exec(String(cmd)) : null; },
+    lastCrash() { return has("lastCrash") ? String(NATIVE.lastCrash() || "") : ""; },
+    clearCrash() { if (has("clearCrash")) NATIVE.clearCrash(); },
     addUsage(tokens) { if (has("addUsage")) NATIVE.addUsage(Number(tokens) || 0); },
     startAgents(label) { if (has("startAgentService")) NATIVE.startAgentService(String(label || "")); },
     stopAgents() { if (has("stopAgentService")) NATIVE.stopAgentService(); },

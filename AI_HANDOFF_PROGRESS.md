@@ -1,6 +1,6 @@
 # So-key Ai AI Handoff Progress
 
-Status: **APK PRODUCED & VERIFIED (static + UI tests)** — 2026-09-18
+Status: **APK 1.0.1 PRODUCED & VERIFIED — launch crash (network security config) fixed** — 2026-09-18
 
 - [x] Inspect project and lockfile — المستودع لم يكن يحتوي كودًا، فقط AI-HANDOFF + 5 صور + اللوجو
 - [x] Inspect Android configuration — لا يوجد Android project سابق؛ أُنشئ مشروع مستقل نظيف
@@ -9,7 +9,8 @@ Status: **APK PRODUCED & VERIFIED (static + UI tests)** — 2026-09-18
 - [x] Prepare reproducible Android build — `scripts/bootstrap-tools.sh` + `scripts/build-apk.sh` (بلا Gradle/SDK)
 - [x] Prepare GitHub Actions if needed — `.github/workflows/android-build.yml` (بناء + اختبار + artifact)
 - [x] Run JavaScript/lint/tests/build gate — 8/8 syntax، 34/34 UI smoke، CSS نظيف
-- [x] Build installable APK — `artifacts/so-key-ai-1.0.0-debug.apk` (≈870 KB، موقّع، minSdk 24)
+- [x] Build installable APK — `artifacts/so-key-ai-1.0.1-debug.apk` (≈1000 KB، موقّع، minSdk 24)
+- [x] Fix on-device launch crash (invalid network_security_config root) + resource validator in the build
 - [x] Verify package ID and launch — `ai.sokey.workspace` ✅ · `launcher activity` ✅ · ELF/dex سليم
 - [x] Finalize documentation — README + docs/{BUILD_STATUS,TESTING,UI-MAP}.md + NOTICE
 

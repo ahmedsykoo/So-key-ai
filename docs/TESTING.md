@@ -59,11 +59,20 @@ for f in app/src/main/assets/www/js/*.js; do node --check "$f"; done   # 8/8
 | minSdk/targetSdk | `aapt2 dump badging` | ✅ `24` / `35` |
 | وجود النشاط القابل للإطلاق | `aapt2 dump badging` | ✅ `ai.sokey.workspace.MainActivity` |
 | أيقونات متعددة الكثافات + adaptive | `dump badging` | ✅ `res/mipmap-anydpi-v26/ic_launcher.xml` |
-| سلامة الأرشيف | `zipfile.testzip()` | ✅ لا أخطاء (47 مدخلًا) |
+| سلامة الأرشيف | `zipfile.testzip()` | ✅ لا أخطاء (50 مدخلًا) |
+| **جذر إعدادات أمان الشبكة** | `aapt2 dump xmltree --file res/xml/network_security_config.xml` | ✅ `network-security-config` (بعد إصلاح عطل انهيار الإقلاع) |
+| صحة جذور كل ملفات XML | `python3 scripts/check-resources.py` | ✅ 10/10 ملفًا |
 | وجود `classes.dex` و`resources.arsc` و`assets/www/*` | فحص قائمة المدخلات | ✅ |
 | الصلاحيات المطلوبة | `dump badging` | ✅ ٨ صلاحيات فقط، بلا صلاحيات زائدة |
 
-## 2) ما لم يُختبر (بصراحة تامة)
+## 2) عطل ظهر على الجهاز وأُصلح
+
+النسخة 1.0.0 كانت **تنهار عند الإقلاع** على Realme 10: سببها جذر خاطئ في
+`res/xml/network_security_config.xml`، ووثّقت التفاصيل والإصلاح والتحقق في
+[`BUILD_STATUS.md`](BUILD_STATUS.md). أُضيف فحص آلي يمنع تكراره، وشاشة خطأ داخل التطبيق
+وسجل قابل للنسخ لتشخيص أي عطل قادم بلا `adb`.
+
+## 3) ما لم يُختبر (بصراحة تامة)
 
 * ❌ **التشغيل على جهاز أندرويد أو محاكي**: لا يوجد `adb` ولا Android SDK ولا جهاز في هذه
   البيئة. لذلك **لم** يُتحقق من: الإقلاع الفعلي، أداء WebView، تناسق الواجهة بصريًا على

@@ -5,7 +5,7 @@
 
 # The verified demo build is committed on purpose so it can be installed straight
 # from the repository (see docs/BUILD_STATUS.md). Everything else stays out of git.
-!artifacts/so-key-ai-1.0.0-debug.apk
+!artifacts/so-key-ai-*.apk
 
 # node / tooling
 node_modules/

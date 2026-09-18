@@ -45,6 +45,17 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // A throw in here means the process dies before anything is drawn — the user only
+        // sees "So-key Ai keeps stopping". Record it and show something readable instead.
+        try {
+            startWorkspace();
+        } catch (Throwable t) {
+            CrashLog.record(this, t);
+            showFatalError(t);
+        }
+    }
+
+    private void startWorkspace() {
         Workspace.init(getApplicationContext());
 
         rootView = new FrameLayout(this);
@@ -322,11 +333,50 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        if (web != null) {
+        if (web != null && rootView != null) {
             rootView.removeView(web);
             web.destroy();
             web = null;
         }
         super.onDestroy();
+    }
+
+    /** Minimal, dependency-free error screen: shows why the workspace could not start. */
+    private void showFatalError(Throwable error) {
+        try {
+            android.widget.ScrollView scroll = new android.widget.ScrollView(this);
+            android.widget.LinearLayout box = new android.widget.LinearLayout(this);
+            box.setOrientation(android.widget.LinearLayout.VERTICAL);
+            int pad = (int) (18 * getResources().getDisplayMetrics().density);
+            box.setPadding(pad, pad * 2, pad, pad);
+            box.setBackgroundColor(Color.parseColor("#07070C"));
+
+            android.widget.TextView title = new android.widget.TextView(this);
+            title.setText("So-key Ai — تعذّر الإقلاع / failed to start");
+            title.setTextColor(Color.parseColor("#F97316"));
+            title.setTextSize(18f);
+            box.addView(title);
+
+            android.widget.TextView hint = new android.widget.TextView(this);
+            hint.setText("تم حفظ التقرير داخل التطبيق: logs/crash-last.txt\n"
+                    + "The report is stored at logs/crash-last.txt — send it to the developer.");
+            hint.setTextColor(Color.parseColor("#9CA3AF"));
+            hint.setTextSize(12f);
+            box.addView(hint);
+
+            android.widget.TextView text = new android.widget.TextView(this);
+            java.io.StringWriter sw = new java.io.StringWriter();
+            error.printStackTrace(new java.io.PrintWriter(sw));
+            text.setText(sw.toString());
+            text.setTextColor(Color.parseColor("#E5E7EB"));
+            text.setTextSize(11f);
+            text.setTextIsSelectable(true);
+            box.addView(text);
+
+            scroll.addView(box);
+            setContentView(scroll);
+        } catch (Throwable ignored) {
+            // nothing more we can do
+        }
     }
 }

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
-    <!--
-      So-key Ai talks to AI providers that legitimately live on the LAN or on the
-      device itself: OmniRoute (http://127.0.0.1:20128 by default), Ollama,
-      LM Studio, vLLM … Those endpoints are plain HTTP, so cleartext has to be
-      allowed. Public traffic still goes over TLS.
-    -->
-    <network-security-config>
-        <base-config cleartextTrafficPermitted="true">
-            <trust-anchors>
-                <certificates src="system" />
-                <certificates src="user" />
-            </trust-anchors>
-        </base-config>
-    </network-security-config>
-</resources>
+<!--
+  So-key Ai talks to AI providers that legitimately live on the LAN or on the
+  device itself: OmniRoute (http://127.0.0.1:20128 by default), Ollama,
+  LM Studio, vLLM … Those endpoints are plain HTTP, so cleartext has to be
+  allowed. Public traffic still goes over TLS.
+
+  IMPORTANT: the root element of a network security config must be
+  <network-security-config>. Wrapping it in <resources> compiles fine but makes
+  Android throw "Failed to parse XML configuration" at process start, which
+  crashes the app before any UI appears. scripts/check-resources.py guards this.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

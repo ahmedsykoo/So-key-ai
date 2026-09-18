@@ -53,6 +53,12 @@ mkdir -p "$BUILD_DIR/gen" "$BUILD_DIR/classes"
 
 say "So-key Ai $VERSION_NAME ($VERSION_CODE) — mode: $MODE"
 
+# 0. resource validation -----------------------------------------------
+# aapt2 accepts any XML root, but Android parses some of them at process start and
+# throws. Gate the build on the roots being right (see docs/BUILD_STATUS.md).
+step "validating resources"
+python3 "$ROOT/scripts/check-resources.py" || die "resource validation failed"
+
 # 1. resources -------------------------------------------------------------
 step "aapt2 compile resources"
 if find "$APP_DIR/res" -type f | grep -q .; then

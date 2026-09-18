@@ -19,7 +19,8 @@ An Android AI workspace — chat, agents, skills, terminal, projects and tools, 
 
 | الحالة | البند |
 |---|---|
-| ✅ | **APK مبني وموقّع وقابل للتثبيت** — `artifacts/so-key-ai-1.0.0-debug.apk` (≈870 KB) |
+| ✅ | **APK مبني وموقّع وقابل للتثبيت** — `artifacts/so-key-ai-1.0.1-debug.apk` (≈1000 KB) |
+| ✅ | إصلاح عطل «التطبيق يتوقف» + فحص آلي للموارد يمنع تكراره (انظر `docs/BUILD_STATUS.md`) |
 | ✅ | المعرّف `ai.sokey.workspace` والاسم `So-key Ai` وأيقونة المشغّل من `so-key-ai-logo.png` |
 | ✅ | سلسلة بناء كاملة **بدون Gradle وبدون Android SDK** (aapt2 + ecj + d8 + apksigner) |
 | ✅ | واجهة عربية RTL كاملة + تبديل فوري للإنجليزية (LTR) |
@@ -40,9 +41,9 @@ An Android AI workspace — chat, agents, skills, terminal, projects and tools, 
 
 | الطريقة | الرابط |
 |---|---|
-| ملف في المستودع (هذا الفرع) | [`artifacts/so-key-ai-1.0.0-debug.apk`](https://github.com/ahmedsykoo/So-key-ai/blob/arena/01a0b4c2-so-key-ai/artifacts/so-key-ai-1.0.0-debug.apk) ← زر **Download** |
-| تنزيل مباشر (raw) | `https://raw.githubusercontent.com/ahmedsykoo/So-key-ai/arena/01a0b4c2-so-key-ai/artifacts/so-key-ai-1.0.0-debug.apk` |
-| صفحة تحميل بسيطة | افتح `artifacts/download.html` من خادم محلي: `python3 -m http.server 8081` ثم `/artifacts/download.html` |
+| ملف في المستودع (هذا الفرع) | [`artifacts/so-key-ai-1.0.1-debug.apk`](https://github.com/ahmedsykoo/So-key-ai/blob/arena/01a0b4c2-so-key-ai/artifacts/so-key-ai-1.0.1-debug.apk) ← زر **Download** |
+| تنزيل مباشر (raw) | `https://raw.githubusercontent.com/ahmedsykoo/So-key-ai/arena/01a0b4c2-so-key-ai/artifacts/so-key-ai-1.0.1-debug.apk` |
+| خادم تحميل محلي | `python3 scripts/serve-download.py 8081` ثم افتح `/` — الرابط الثابت `/so-key-ai.apk` يخدم أحدث بناء |
 
 > ملاحظة: الملف موجود **في فرع هذه المراجعة** (`arena/01a0b4c2-so-key-ai`) وليس في `main` بعد،
 > لأن العمل ما زال في PR #2. بعد الدمج سيظهر في الفرع الافتراضي مباشرة.

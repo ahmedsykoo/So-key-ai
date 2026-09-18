@@ -61,7 +61,7 @@
         title: t("nav_settings"),
         items: [
           { nav: "storage", icon: "database", title: t("storage"), sub: window.Api.Native.workspaceDir() || "workspace" },
-          { nav: "about", icon: "info", title: t("about"), sub: `${t("version")} 1.0.0 · ai.sokey.workspace` },
+          { nav: "about", icon: "info", title: t("about"), sub: `${t("version")} ${window.Api.Native.info().version || ""} · ai.sokey.workspace` },
           { nav: "help", icon: "help", title: t("help"), sub: t("help_hint") },
         ],
       },
@@ -285,6 +285,7 @@
         <div class="kv"><span class="k">License</span><span class="v">GPL-3.0-or-later</span></div>
       </div>
       <div class="card mt"><div class="small muted">${esc(t("about_text"))}</div></div>
+      ${crashCard()}
       <div class="btn-row mt">
         <button class="btn grow" data-act="open-link" data-url="https://github.com/ahmedsykoo/So-key-ai">${I()("git")} GitHub</button>
         <button class="btn grow" data-act="nav" data-nav="help">${I()("help")} ${esc(t("help"))}</button>
@@ -292,6 +293,24 @@
     </div>`;
   }
 
-  window.Screens3 = { settings, appearance, language, providers, omniroute, storage, about, THEMES };
+  /** Shows the last fatal error (if any) with copy / clear actions. */
+  function crashCard() {
+    const log = window.Api.Native.lastCrash();
+    if (!log) {
+      return `<div class="card mt"><div class="row-between">
+        <span class="small muted">${esc(ar() ? "سجل الأخطاء: لا توجد أخطاء مسجّلة ✅" : "Error log: nothing recorded ✅")}</span>
+      </div></div>`;
+    }
+    return `<div class="section-title"><span>${esc(ar() ? "سجل آخر خطأ" : "Last error log")}</span></div>
+      <div class="card">
+        <pre class="term" style="max-height:220px;font-size:11px">${esc(log.slice(0, 4000))}</pre>
+        <div class="btn-row mt-s">
+          <button class="btn sm grow" data-act="copy-crash">${I()("copy")} ${esc(t("copy"))}</button>
+          <button class="btn sm danger grow" data-act="clear-crash">${I()("trash")} ${esc(t("delete"))}</button>
+        </div>
+      </div>`;
+  }
+
+  window.Screens3 = { settings, appearance, language, providers, omniroute, storage, about, crashCard, THEMES };
   Object.assign(window.Screens, window.Screens3);
 })();

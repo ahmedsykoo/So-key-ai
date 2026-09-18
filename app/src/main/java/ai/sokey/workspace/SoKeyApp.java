@@ -5,7 +5,13 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-/** Application entry point: creates the notification channel used by agents/workflows. */
+/**
+ * Application entry point.
+ *
+ * Everything here is defensive: an exception thrown from Application.onCreate kills the
+ * process before any UI exists ("So-key Ai keeps stopping"), so each step is guarded and
+ * failures are recorded instead of propagated.
+ */
 public class SoKeyApp extends Application {
 
     public static final String CHANNEL_AGENTS = "agents";
@@ -13,18 +19,32 @@ public class SoKeyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager nm = getSystemService(NotificationManager.class);
-            if (nm != null) {
-                NotificationChannel ch = new NotificationChannel(
-                        CHANNEL_AGENTS,
-                        getString(R.string.notification_channel_agents),
-                        NotificationManager.IMPORTANCE_LOW);
-                ch.setDescription(getString(R.string.notification_channel_agents_desc));
-                ch.setShowBadge(false);
-                nm.createNotificationChannel(ch);
-            }
+        try {
+            CrashLog.install(this);
+        } catch (Throwable ignored) {
         }
-        Workspace.init(this);
+        try {
+            Workspace.init(this);
+        } catch (Throwable t) {
+            CrashLog.record(this, t);
+        }
+        try {
+            createChannels();
+        } catch (Throwable t) {
+            CrashLog.record(this, t);
+        }
+    }
+
+    private void createChannels() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
+        NotificationManager nm = getSystemService(NotificationManager.class);
+        if (nm == null) return;
+        NotificationChannel ch = new NotificationChannel(
+                CHANNEL_AGENTS,
+                getString(R.string.notification_channel_agents),
+                NotificationManager.IMPORTANCE_LOW);
+        ch.setDescription(getString(R.string.notification_channel_agents_desc));
+        ch.setShowBadge(false);
+        nm.createNotificationChannel(ch);
     }
 }
