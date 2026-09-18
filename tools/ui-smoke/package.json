@@ -1,0 +1,13 @@
+{
+  "name": "so-key-ai-ui-smoke",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Headless UI smoke test for the So-key Ai workspace (jsdom based).",
+  "type": "module",
+  "scripts": {
+    "test": "node smoke.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.0"
+  }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">So-key Ai</string>
+    <string name="app_description">مساحة عمل ذكاء اصطناعي: محادثات، وكلاء، مهارات، محطة طرفية، مشاريع وأدوات — بدعم عربي كامل.</string>
+    <string name="browser_title">المتصفح</string>
+    <string name="notification_channel_agents">وكلاء وسير العمل</string>
+    <string name="notification_channel_agents_desc">إشعارات تشغيل الوكلاء وسير العمل في الخلفية</string>
+    <string name="notif_running">So-key Ai يعمل في الخلفية</string>
+    <string name="share_chooser">مشاركة الملف</string>
+</resources>

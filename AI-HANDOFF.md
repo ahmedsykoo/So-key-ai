@@ -1,5 +1,12 @@
 # SO-KEY AI — AI HANDOFF / CONTINUATION BRIEF
 
+> **حالة التنفيذ (2026-09-18):** نُفِّذ مشروع So-key Ai من الصفر في هذا المستودع، وبُني
+> **APK فعلي موقّع** في `artifacts/so-key-ai-1.0.0-debug.apk` (المعرّف `ai.sokey.workspace`).
+> اقرأ أولًا [`README.md`](README.md) و[`docs/BUILD_STATUS.md`](docs/BUILD_STATUS.md) و
+> [`docs/TESTING.md`](docs/TESTING.md) و[`docs/UI-MAP.md`](docs/UI-MAP.md).
+> ملاحظة مهمة: النسخة المنفَّذة **مستقلة عن Shelly/Expo/EAS** (قرار مقصود ومُوثَّق في `NOTICE`)
+> لأن البناء يجب أن يكون قابلًا للتكرار بلا Android SDK ولا Maven ولا صلاحيات EAS.
+
 ## الهدف النهائي
 أكمل مشروع **So-key Ai** حتى يصبح Android app قابلًا للبناء والتثبيت والتشغيل فعليًا.
 

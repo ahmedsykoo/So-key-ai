@@ -1,0 +1,160 @@
+/* ==========================================================================
+   So-key Ai — runtime themes (12), switchable from المظهر / chat styles.
+   Every theme only remaps tokens, so the whole UI re-skins instantly.
+   ========================================================================== */
+
+/* 1. default — the reference dark UI */
+[data-theme="default"] {
+  --bg: #07070c; --panel: #101018; --panel-2: #15151f; --panel-3: #1b1b28;
+  --accent: #f97316; --accent-2: #fb923c; --accent-soft: rgba(249,115,22,.14);
+  --bubble-ai: #14141d; --bubble-user: linear-gradient(135deg,#f97316,#fb923c); --bubble-user-text: #1b1305;
+}
+
+/* 2. amoled — true black for OLED */
+[data-theme="amoled"] {
+  --bg: #000000; --panel: #070709; --panel-2: #0d0d11; --panel-3: #141419;
+  --border: rgba(255,255,255,.10);
+  --accent: #f97316; --accent-2: #fdba74; --accent-soft: rgba(249,115,22,.16);
+  --bubble-ai: #0b0b0f; --bubble-user: linear-gradient(135deg,#ea580c,#f97316); --bubble-user-text: #140f06;
+  background: #000;
+}
+[data-theme="amoled"] #app {
+  background: radial-gradient(800px 380px at 100% 0%, rgba(249,115,22,.07), transparent 60%), #000;
+}
+
+/* 3. neon — violet/cyan glow */
+[data-theme="neon"] {
+  --bg: #0a0616; --panel: #130a26; --panel-2: #180d2f; --panel-3: #21113d;
+  --border: rgba(167,139,250,.22);
+  --text: #f5f3ff; --text-dim: #d8ccff; --muted: #a78bfa; --faint: #7c6bb0;
+  --accent: #a855f7; --accent-2: #22d3ee; --accent-soft: rgba(168,85,247,.2);
+  --bubble-ai: #180d2f; --bubble-user: linear-gradient(135deg,#a855f7,#22d3ee); --bubble-user-text: #0b0616;
+}
+[data-theme="neon"] #app {
+  background: radial-gradient(900px 420px at 100% 0%, rgba(34,211,238,.14), transparent 60%),
+              radial-gradient(700px 400px at 0% 10%, rgba(168,85,247,.18), transparent 60%), var(--bg);
+}
+
+/* 4. minimal — clean light surface with muted greys */
+[data-theme="minimal"] {
+  --bg: #f7f7f9; --panel: #ffffff; --panel-2: #f2f2f5; --panel-3: #e8e8ed;
+  --border: rgba(15,23,42,.10); --border-strong: rgba(15,23,42,.2);
+  --text: #16181d; --text-dim: #3b414c; --muted: #6b7280; --faint: #9aa1ac;
+  --accent: #111827; --accent-2: #374151; --accent-soft: rgba(17,24,39,.08);
+  --bubble-ai: #f2f2f5; --bubble-user: linear-gradient(135deg,#111827,#374151); --bubble-user-text: #ffffff;
+  color-scheme: light;
+}
+[data-theme="minimal"] #app { background: var(--bg); }
+[data-theme="minimal"] #sidebar, [data-theme="minimal"] #bottomnav, [data-theme="minimal"] #topbar {
+  background: rgba(255,255,255,.9);
+}
+[data-theme="minimal"] .msg .bubble code, [data-theme="minimal"] .msg .bubble pre {
+  background: #ffffff; color: #0f172a;
+}
+
+/* 5. glass — translucent frosted panels */
+[data-theme="glass"] {
+  --bg: #06101c; --panel: rgba(255,255,255,.06); --panel-2: rgba(255,255,255,.09);
+  --panel-3: rgba(255,255,255,.13);
+  --border: rgba(255,255,255,.16); --border-strong: rgba(255,255,255,.28);
+  --accent: #38bdf8; --accent-2: #818cf8; --accent-soft: rgba(56,189,248,.18);
+  --bubble-ai: rgba(255,255,255,.08); --bubble-user: linear-gradient(135deg,#38bdf8,#818cf8); --bubble-user-text: #04121f;
+}
+[data-theme="glass"] #app {
+  background: radial-gradient(700px 400px at 15% 0%, #1e3a8a55, transparent 60%),
+              radial-gradient(700px 420px at 85% 10%, #0891b255, transparent 60%),
+              linear-gradient(160deg, #06101c, #0a1a2c);
+}
+[data-theme="glass"] .card, [data-theme="glass"] .list-item, [data-theme="glass"] .sheet {
+  backdrop-filter: var(--blur);
+}
+
+/* 6. terminal — phosphor green on black */
+[data-theme="terminal"] {
+  --bg: #040804; --panel: #071007; --panel-2: #0a160a; --panel-3: #0f210f;
+  --border: rgba(34,197,94,.22);
+  --text: #d7ffd9; --text-dim: #a7f3ad; --muted: #4ade80; --faint: #2f7f4a;
+  --accent: #22c55e; --accent-2: #86efac; --accent-soft: rgba(34,197,94,.16);
+  --bubble-ai: #0a160a; --bubble-user: #14532d; --bubble-user-text: #dcfce7;
+  --font: var(--font-mono);
+}
+[data-theme="terminal"] #app {
+  background: radial-gradient(700px 400px at 50% -10%, rgba(34,197,94,.12), transparent 60%), var(--bg);
+}
+[data-theme="terminal"] .brand .b-name::after { content: " _"; color: var(--accent); }
+
+/* 7. ocean — deep blue calm */
+[data-theme="ocean"] {
+  --bg: #04121b; --panel: #08202e; --panel-2: #0b2a3b; --panel-3: #103748;
+  --border: rgba(56,189,248,.16);
+  --accent: #0ea5e9; --accent-2: #22d3ee; --accent-soft: rgba(14,165,233,.16);
+  --bubble-ai: #0b2a3b; --bubble-user: linear-gradient(135deg,#0ea5e9,#22d3ee); --bubble-user-text: #02141f;
+}
+[data-theme="ocean"] #app {
+  background: radial-gradient(800px 420px at 100% 100%, rgba(34,211,238,.12), transparent 60%), var(--bg);
+}
+
+/* 8. sunset — warm orange/pink */
+[data-theme="sunset"] {
+  --bg: #170a12; --panel: #24101c; --panel-2: #2c1423; --panel-3: #38192c;
+  --border: rgba(251,146,60,.18);
+  --accent: #fb7185; --accent-2: #fbbf24; --accent-soft: rgba(251,113,133,.16);
+  --bubble-ai: #2c1423; --bubble-user: linear-gradient(135deg,#fb7185,#fbbf24); --bubble-user-text: #2a0f14;
+}
+[data-theme="sunset"] #app {
+  background: linear-gradient(170deg, #2a0f1c 0%, #170a12 42%), var(--bg);
+}
+
+/* 9. forest — green/brown */
+[data-theme="forest"] {
+  --bg: #071310; --panel: #0d211b; --panel-2: #112a22; --panel-3: #16362b;
+  --border: rgba(52,211,153,.18);
+  --accent: #34d399; --accent-2: #a3e635; --accent-soft: rgba(52,211,153,.16);
+  --bubble-ai: #112a22; --bubble-user: linear-gradient(135deg,#34d399,#a3e635); --bubble-user-text: #062218;
+}
+[data-theme="forest"] #app {
+  background: radial-gradient(800px 420px at 10% 0%, rgba(163,230,53,.10), transparent 60%), var(--bg);
+}
+
+/* 10. cyber — magenta/cyan synthwave */
+[data-theme="cyber"] {
+  --bg: #0b0616; --panel: #170a2a; --panel-2: #1e0d36; --panel-3: #291247;
+  --border: rgba(236,72,153,.22);
+  --accent: #ec4899; --accent-2: #06b6d4; --accent-soft: rgba(236,72,153,.18);
+  --bubble-ai: #1e0d36; --bubble-user: linear-gradient(135deg,#ec4899,#06b6d4); --bubble-user-text: #12021a;
+}
+[data-theme="cyber"] #app {
+  background: radial-gradient(700px 380px at 100% 0%, rgba(6,182,212,.16), transparent 60%),
+              radial-gradient(600px 380px at 0% 20%, rgba(236,72,153,.18), transparent 60%), var(--bg);
+}
+
+/* 11. dracula — the classic purple-grey */
+[data-theme="dracula"] {
+  --bg: #1e1f29; --panel: #282a36; --panel-2: #2f3143; --panel-3: #383a4f;
+  --border: rgba(189,147,249,.18);
+  --text: #f8f8f2; --text-dim: #ded9f0; --muted: #bdb3d6; --faint: #7d7a92;
+  --accent: #bd93f9; --accent-2: #ff79c6; --accent-soft: rgba(189,147,249,.18);
+  --bubble-ai: #2f3143; --bubble-user: linear-gradient(135deg,#bd93f9,#ff79c6); --bubble-user-text: #221430;
+}
+[data-theme="dracula"] #app { background: var(--bg); }
+
+/* 12. light — bright workspace with the brand orange */
+[data-theme="light"] {
+  --bg: #ffffff; --panel: #ffffff; --panel-2: #f5f6f8; --panel-3: #eceef2;
+  --border: rgba(15,23,42,.10); --border-strong: rgba(15,23,42,.2);
+  --text: #0f172a; --text-dim: #384152; --muted: #64748b; --faint: #94a3b8;
+  --accent: #f97316; --accent-2: #fb923c; --accent-soft: rgba(249,115,22,.12);
+  --bubble-ai: #f5f6f8; --bubble-user: linear-gradient(135deg,#f97316,#fb923c); --bubble-user-text: #ffffff;
+  color-scheme: light;
+}
+[data-theme="light"] #app { background: var(--bg); }
+[data-theme="light"] #screen {
+  background: radial-gradient(600px 320px at 100% 0%, rgba(249,115,22,.06), transparent 60%);
+}
+[data-theme="light"] #topbar, [data-theme="light"] #sidebar, [data-theme="light"] #bottomnav {
+  background: rgba(255,255,255,.92);
+}
+[data-theme="light"] .theme-card .th-prev { background: #fff; }
+[data-theme="light"] .brand .b-name, [data-theme="light"] .section-title { color: #0f172a; }
+[data-theme="light"] .toast { background: #fff; color: #0f172a; }
+[data-theme="light"] .terminal, [data-theme="light"] .term { background: #0b1020; }

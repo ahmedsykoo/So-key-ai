@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base theme: dark, edge-to-edge, no action bar (the UI is fully drawn by the app) -->
+    <style name="Theme.SoKeyAi" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/sokey_bg</item>
+        <item name="android:colorBackground">@color/sokey_bg</item>
+        <item name="android:statusBarColor">@color/sokey_bg</item>
+        <item name="android:navigationBarColor">@color/sokey_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:textColorPrimary">@color/sokey_text</item>
+        <item name="android:textColorSecondary">@color/sokey_muted</item>
+        <item name="android:textColorHint">@color/sokey_muted</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+    <!-- Launcher theme: shows the S+key mark while the workspace boots -->
+    <style name="Theme.SoKeyAi.Splash" parent="@style/Theme.SoKeyAi">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+</resources>

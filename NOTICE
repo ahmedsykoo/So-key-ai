@@ -1,0 +1,40 @@
+So-key Ai — NOTICE
+==================
+
+So-key Ai (application ID ai.sokey.workspace)
+Copyright (C) 2026 the So-key Ai authors.
+Licensed under the GNU General Public License v3.0 or later (see LICENSE).
+
+Independent implementation
+--------------------------
+This repository contains an independent Android implementation written for the
+So-key Ai project: a Java (framework-only) application layer plus an HTML/CSS/JS
+workspace UI that ships inside the APK. It does not contain source code from any
+other project, and it deliberately avoids the Expo / React Native toolchain and
+the EAS project identifier referenced in AI-HANDOFF.md, so that the app can be
+built and signed reproducibly without an Android SDK, Gradle or any registry
+access outside npm/PyPI. The GPL-3.0-or-later license is kept for compatibility
+with the licensing intent stated in the project brief.
+
+Prior art and inspiration
+-------------------------
+- RYOITABASHI/Shelly (GPL-3.0) — the open-source Android agent project that the
+  brief describes as the conceptual basis for So-key Ai (terminal, agents,
+  skills/plugins, MCP/A2A, multi-provider AI). No files were copied from it; its
+  GPL-3.0 LICENSE text is reproduced here verbatim for the license obligation.
+- The five UI reference images and so-key-ai-logo.png supplied in this repository
+  by the project owner define the visual design implemented under
+  app/src/main/assets/www.
+
+Build toolchain (fetched at build time, not redistributed in this repository)
+----------------------------------------------------------------------------
+- Temurin OpenJDK (jdk4py wheel, GPL-2.0 with Classpath Exception) — javac/java.
+- aapt2 from the Android Open Source Project (Apache-2.0), redistributed through
+  the npm package `aaptjs3`.
+- D8/R8 (Apache-2.0), apksigner (Apache-2.0) and `android.jar` (Apache-2.0),
+  redistributed through the npm package `@drxiaozhi/minapk`.
+- Eclipse Compiler for Java (EPL-2.0), redistributed in the same npm package.
+- jsdom (MIT) — used only by tools/ui-smoke, the development-time UI test.
+
+The APK produced by scripts/build-apk.sh bundles no third-party Android
+libraries: it depends only on the Android framework and on Google's WebView.

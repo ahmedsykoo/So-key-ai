@@ -1,0 +1,80 @@
+name: Android build
+
+on:
+  push:
+    branches: ["main", "arena/**"]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      release_build:
+        description: "Sign with the release keystore (requires repository secrets)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python tooling (JDK provider + image library)
+        run: python3 -m pip install --upgrade pip jdk4py Pillow
+
+      - name: Bootstrap the Android toolchain (no Android SDK / Gradle needed)
+        run: bash scripts/bootstrap-tools.sh
+
+      - name: JavaScript syntax check
+        run: |
+          for f in app/src/main/assets/www/js/*.js; do node --check "$f"; done
+
+      - name: UI smoke test (jsdom)
+        working-directory: tools/ui-smoke
+        run: |
+          npm install --no-audit --no-fund
+          node smoke.mjs
+          node csscheck.mjs
+
+      - name: Regenerate launcher / splash assets
+        run: python3 scripts/make-assets.py
+
+      - name: Build APK
+        env:
+          SOKEY_KEYSTORE: ${{ secrets.SOKEY_KEYSTORE_BASE64 != '' && 'release.keystore' || '' }}
+        run: |
+          if [ -n "${{ secrets.SOKEY_KEYSTORE_BASE64 }}" ]; then
+            echo "${{ secrets.SOKEY_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
+          fi
+          if [ -n "${{ secrets.SOKEY_KEYSTORE_BASE64 }}" ] && [ "${{ inputs.release_build }}" = "true" ]; then
+            SOKEY_KEYSTORE=release.keystore \
+            SOKEY_KEY_ALIAS="${{ secrets.SOKEY_KEY_ALIAS }}" \
+            SOKEY_STORE_PASS="${{ secrets.SOKEY_STORE_PASS }}" \
+            SOKEY_KEY_PASS="${{ secrets.SOKEY_KEY_PASS }}" \
+            bash scripts/build-apk.sh --clean --release
+          else
+            bash scripts/build-apk.sh --clean
+          fi
+
+      - name: Inspect the produced APK
+        run: |
+          source ~/.cache/sokey-tools/env.sh
+          APK=$(ls -1 artifacts/*.apk | head -1)
+          echo "APK: $APK ($(du -h "$APK" | cut -f1))"
+          "$SOKEY_AAPT2" dump badging "$APK" | grep -E "^(package|application-label|sdkVersion|targetSdkVersion|launchable-activity)"
+          sha256sum "$APK"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: so-key-ai-apk
+          path: artifacts/*.apk
+          retention-days: 30

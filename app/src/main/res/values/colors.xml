@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- So-key Ai palette — mirrors the design tokens used by the web UI (app/src/main/assets/www/css/base.css) -->
+    <color name="sokey_bg">#FF07070C</color>
+    <color name="sokey_panel">#FF101018</color>
+    <color name="sokey_border">#1FFFFFFF</color>
+    <color name="sokey_accent">#FFF97316</color>
+    <color name="sokey_text">#FFF3F4F6</color>
+    <color name="sokey_muted">#FF9CA3AF</color>
+</resources>

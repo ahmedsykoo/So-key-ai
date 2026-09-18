@@ -1,0 +1,29 @@
+# build output
+/build/
+*.apk
+*.idsig
+
+# The verified demo build is committed on purpose so it can be installed straight
+# from the repository (see docs/BUILD_STATUS.md). Everything else stays out of git.
+!artifacts/so-key-ai-1.0.0-debug.apk
+
+# node / tooling
+node_modules/
+tools/ui-smoke/node_modules/
+.npm/
+
+# python
+__pycache__/
+*.pyc
+
+# editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# secrets — never commit a keystore or a keystore password
+*.keystore
+*.jks
+*.p12
+!app/src/main/res/**/*.png
