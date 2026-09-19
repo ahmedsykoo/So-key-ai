@@ -16,10 +16,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Setup Node.js
@@ -34,10 +34,8 @@ jobs:
       - name: Build Web Application
         run: npm run build
 
-      - name: Ensure Capacitor Android Platform
-        run: |
-          npx cap add android || true
-          npx cap copy android
+      - name: Sync Capacitor Android Assets
+        run: npx cap sync android
 
       - name: Make Gradlew Executable
         run: chmod +x android/gradlew
